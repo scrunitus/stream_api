@@ -16,11 +16,11 @@ videos="https://api.themoviedb.org/3/movie/11/videos"
 
 
 
-auth_response = requests.get(AUTH_URL, headers=HEADER)
-videos_response = requests.get(videos, headers=HEADER)
-test_response = requests.get("https://api.themoviedb.org/3/search/movie?query=star%20wars", headers=HEADER)
+#auth_response = requests.get(AUTH_URL, headers=HEADER)
+#videos_response = requests.get(videos, headers=HEADER)
+#test_response = requests.get("https://api.themoviedb.org/3/search/movie?query=star%20wars", headers=HEADER)
 
-videos_response_parsed = json.loads(test_response.text)
+#videos_response_parsed = json.loads(test_response.text)
 
 def _auth_check():
     response = requests.get(AUTH_URL)
@@ -37,15 +37,23 @@ def api_call(url) -> json.load:
 if __name__ == "__main__":
     while True:
         _auth_check()
-        #movie_input = input("What movie would you like to watch?\n")
-        movie_input = ""
+        movie_input = input("What movie would you like to watch?\n")
+        #movie_input = ""
         movie_input_parsed = movie_input.replace(" ", '%20')
         movie_matches = api_call(url=f"https://api.themoviedb.org/3/search/movie?query={movie_input_parsed}")
+
         if not movie_matches["results"]:
             logger.error(f"no movies found")
             continue
-        for index, match in enumerate(movie_matches["results"]):
-            if  movie_input.lower() in match["original_title"].lower():
-                print(f"exact match for:{match['original_title']}")
-            
 
+        print("choose a movie")
+        movie_list = []
+        for index, match in enumerate(movie_matches["results"]):
+            print(f"[{index+1}] {match['original_title']}")
+            movie_list.append(match['original_title'])
+        movie_choice_nr = int(input("choose a movie: ")) -1
+
+        print(movie_matches["results"][movie_choice_nr]["id"])
+        movie_choice_info = api_call(url=f"https://api.themoviedb.org/3/movie/{movie_matches['results'][movie_choice_nr]['id']}/videos")
+        print(movie_choice_info)
+        break
