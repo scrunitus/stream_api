@@ -10,6 +10,8 @@ packages = [{include = "stream_api"}]
 python = "^3.8"
 requests = "^2.31.0"
 prettytable = "^3.8.0"
+django = "^4.2.4"
+configparser = "^6.0.0"
 
 
 
