@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from django.shortcuts import redirect
+from . import views
 urlpatterns = [
-    path("", include("polls.urls")),
-    path("", include("login.urls")),
+    path("", include("sites.urls")),
+    path("", views.index),
     path("admin/", admin.site.urls),
 ]

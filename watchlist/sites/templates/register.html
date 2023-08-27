@@ -62,6 +62,12 @@
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
 
 	</style>
 
@@ -109,8 +115,10 @@
 				</div>
                 
                 {% for message in messages %}
-                <p id="messages">{{message}}</p>
+                <p>{{message}}</p>
                 {% endfor %}
+
+				{{form.errors}}
 
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
